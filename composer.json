@@ -1,0 +1,23 @@
+{
+    "name": "paperclip/facturas-electronicas",
+    "description": "Integración de la API facturaselectronicas.biz de Paperclip.",
+    "license": "GPL-3.0-or-later",
+    "keywords": ["cpe", "facturas", "electronicas", "perú"],
+    "homepage": "https://facturaselectronicas.biz",
+    "authors": [
+        {
+            "name": "Oliver Etchebarne",
+            "email": "yo@drmad.org",
+            "homepage": "https://drmad.org"
+        }
+    ],
+    "require": {
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Paperclip\\FacturasElectrónicas\\": "src/"
+        }
+    }
+
+}
