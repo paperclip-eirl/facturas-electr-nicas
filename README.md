@@ -7,7 +7,7 @@ Librería de acceso a la API de [facturaselectronicas.biz](https://facturaselect
 La instalación se realiza via [Composer](https://packagist.org/packages/paperclip/facturas-electronicas):
 
 ```
-composer require paperclip/facturas-electrónicas
+composer require paperclip/facturas-electronicas
 ```
 
 ## Uso
