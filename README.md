@@ -16,7 +16,6 @@ El constructor de la clase `Paperclip\FacturasElectrónicas\Facturador` acepta t
 
 * `$token`, el token recibido cuando creas el acceso a la API de facturación de Paperclip.
 * `$url`, la URL para acceder a la API de facturación de Paperclip, también recibida cuando creas el acceso.
-* `$opciones` (opcional), array con opciones. Actualmente sólo acepta un valor: `comprimir`, que cuando se coloca a `true`, envía la información comprimida.
 
 Al instanciar un objecto `Paperclip\FacturasElectrónicas\Facturador`, puedes ejecutar un [comando de la API](https://docs.paperclip.com.pe/api-facturación/#comandos) como método del objeto:
 
