@@ -24,8 +24,8 @@ Al instanciar un objecto `Paperclip\FacturasElectrónicas\Facturador`, puedes ej
 * [`Facturador::emitir(array $parámetros):array`](https://docs.paperclip.com.pe/api-facturación/documentación/comando-emitir/): Genera un nuevo comprobante, ya sea factura, boleta, o sus notas correspondientes.
 * [`Facturador::baja(array $parámetros): array`](https://docs.paperclip.com.pe/api-facturación/documentación/comando-baja/): Solicita la baja (anulación) un comprobante.
 * [`Facturador::correo(array $parámetros):array`](https://docs.paperclip.com.pe/api-facturación/documentación/comando-correo/): Envia el PDF y el XML por correo electrónico a los destinatarios especificados.
-* [`Facturador::consultar_ruc(array $parámetros):array`](https://docs.paperclip.com.pe/api-facturación/documentación/comando-consultarruc/): Obtiene información sobre un RUC, o un DNI con empresa.
-* [`Facturador::consultar_ticket(array $parámetros):array`](https://docs.paperclip.com.pe/api-facturación/documentación/comando-consultarticket/): Consulta el estado de un ticket de una transacción diferida de la SUNAT.
+* [`Facturador::consultarRuc(array $parámetros):array`](https://docs.paperclip.com.pe/api-facturación/documentación/comando-consultarruc/): Obtiene información sobre un RUC, o un DNI con empresa.
+* [`Facturador::consultarTicket(array $parámetros):array`](https://docs.paperclip.com.pe/api-facturación/documentación/comando-consultarticket/): Consulta el estado de un ticket de una transacción diferida de la SUNAT.
 
 `$parámetros` es el array de parámetros requerido por cada comando de la API.
 
@@ -43,7 +43,7 @@ Cuando la API retorna un error, se genera varias excepciones según el tipo de e
 Este código emite una factura electrónica:
 
 ```php
-<?php 
+<?php
 
 use Paperclip\FacturasElectrónicas\Facturador;
 
@@ -123,17 +123,17 @@ try {
     // Emitimos el comprobante
     $resultado = $facturador->emitir($parámetros);
 } catch (Exception $e) {
-    // Si falla, generará una excepción. Obtenemos el resultado 
+    // Si falla, generará una excepción. Obtenemos el resultado
     echo get_class($e) . ': ' . $e->getMessage() . PHP_EOL . PHP_EOL;
-    
+
     // $resultado tendrá información del error.
     $resultado = $facturador->obtenerRespuesta();
-    
+
     var_dump($resultado);
     exit;
 }
 
-// En este punto, el comprobante fue recibido satisfactoriamente por la API. 
+// En este punto, el comprobante fue recibido satisfactoriamente por la API.
 // El resultado del comando 'emitir' estará en la variable $resultado.
 //
 // Puedes ver más información sobre las variables del resultado en la URL
@@ -166,4 +166,3 @@ array(7) {
   }
 }
 ```
-
