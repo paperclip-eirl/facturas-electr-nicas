@@ -61,8 +61,8 @@ class Facturador
 
         $c = curl_init($url);
         curl_setopt($c, CURLOPT_HTTPHEADER, [
-            'X-Token: ' . $this->token,
-            'X-Formato: json'
+            'Authorization: Bearer ' . $this->token,
+            'Content-Type: application/json'
         ]);
         curl_setopt($c, CURLOPT_POST, true);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
@@ -70,25 +70,57 @@ class Facturador
 
         $result = curl_exec($c);
 
+        curl_close($c);
+
         if ($result === false) {
             throw new RuntimeException(curl_error($c));
         } else {
-            $status = json_decode($result, true);
+            $respuesta = json_decode($result, true);
+            $code = curl_getinfo($c, CURLINFO_RESPONSE_CODE);
+
             // Esto _nunca_ debe pasar...
-            if (is_null($status)) {
-                throw new RuntimeException("Error interno de la API. Por favor, comuníquese con el administrador.");
+            if (is_null($respuesta)) {
+                throw new ExcepciónFatal("Error interno de la API. Por favor, comuníquese con el administrador. [$code - $respuesta]");
             }
 
-            if ($status['estado'] != 'ok') {
-                throw new RuntimeException($status['descripcion_error'] . ": "
-                    . $status['descripcion_extra']);
+            $this->respuesta = $respuesta;
 
+            // Errores fatales.
+            if ($code >= 500) {
+                throw new ExcepciónFatal("Error interno de la API. Por favor, comuníquese con el administrador.", $code);
             }
+
+            // Errores de parámetros del comando
+            if ($code == 400) {
+                throw new ExcepciónParámetros($respuesta['descripcion_error'] . ' - ' . $respuesta['descripcion_extra'], $code);
+            }
+
+            // Errores de autorización
+            if ($code == 403) {
+                throw new ExcepciónAutorización($respuesta['descripcion_error'], $code);
+            }
+
+            // Errores de negociación
+            if ($code == 406) {
+                throw new ExcepciónNegociación($respuesta['descripcion_error'], $code);
+            }
+
+            // No debería haber otro error acá
+            if ($code >= 401 && $code <= 499) {
+                throw new ExcepciónFatal("Error inesperado. Por favor, comuníquese con el administrador. [{$code}]");
+            }
+
         }
 
-        curl_close($c);
+        return $respuesta;
+    }
 
-        return $status;
+    /**
+     * Retorna la respuesta dada por el facturador.
+     */
+    public function obtenerRespuesta(): array
+    {
+        return $this->respuesta;
     }
 
     /**
