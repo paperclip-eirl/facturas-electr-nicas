@@ -1,14 +1,13 @@
 <?php
 namespace Paperclip\FacturasElectrónicas;
 
-use InvalidArgumentException;
-use RuntimeException;
+use Exception;
 
 /**
  * Clase para enviar la información de los comprobantes de pago via la API de
  * https://facturaselectronicas.biz/
  *
- * @author Oliver Etchebarne
+ * @author Oliver Etchebarne <yo@drmad.org>
  */
 class Facturador
 {
@@ -18,8 +17,14 @@ class Facturador
     private $parámetros = [];
     private $items = [];
 
+    /** Respuesta de la API, para obtener con obtenerRespuesta() */
+    private $respuesta = [];
+
     /**
-     * Constructor
+     * Constructor de la clase
+     *
+     * @param string $token Token de acceso
+     * @param string $url URL para enviar la información.
      */
     public function __construct($token, $url)
     {
@@ -57,6 +62,7 @@ class Facturador
 
     /**
      * Ejecuta un comando de la API.
+     *
      * @param string $comando Comando a ejecutar.
      */
     public function ejecutar($comando)
@@ -74,6 +80,8 @@ class Facturador
         curl_setopt($c, CURLOPT_POST, true);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($c, CURLOPT_POSTFIELDS, $payload);
+
+        $this->colocarOpcionesCURL($c);
 
         $result = curl_exec($c);
 
