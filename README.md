@@ -31,14 +31,12 @@ Al instanciar un objecto `Paperclip\FacturasElectrónicas\Facturador`, puedes ej
 
 ## Excepciones
 
-Cuando la API retorna un error, se genera varias excepciones según el tipo de error. Todas las excepciones extienden `\Exception`
+Cuando la API retorna un error, se genera varias excepciones según el tipo de error. Todas las excepciones extienden `\Exception`:
 
 * **`Paperclip\FacturasElectrónicas\ExcepciónAutorización`**: Excepción lanzada cuando hubo un error en la fase de autorización, como un UUID o token inválido.
 * **`Paperclip\FacturasElectrónicas\ExcepciónNegociación`**: Excepción lanzada cuando hubo un error en la fase de negociaciación con la API, como error en la cabecera HTML del formato a usar, etc.
 * **`Paperclip\FacturasElectrónicas\ExcepciónParámetros`**: Excepción lanzada cuando hubo un error en los parámetros enviados a la API.
 * **`Paperclip\FacturasElectrónicas\ExcepciónFatal`**: Excepción lanzada cuando hubo un error no previsto en la API o en esta librería.
-
-
 
 ## Ejemplo
 
