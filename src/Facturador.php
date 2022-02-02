@@ -38,6 +38,13 @@ class Facturador
     }
 
     /**
+     * Añade opciones a la librería cURL. Usado para depuración.
+     */
+    public function colocarOpcionesCURL($c)
+    {
+    }
+
+    /**
      * Asigna parámetros a esta petición.
      * @param array $parámetros Parámetros a añadir
      * @return self
