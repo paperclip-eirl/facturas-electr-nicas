@@ -85,8 +85,6 @@ class Facturador
 
         $result = curl_exec($c);
 
-        curl_close($c);
-
         if ($result === false) {
             throw new RuntimeException(curl_error($c));
         } else {
@@ -126,6 +124,8 @@ class Facturador
             }
 
         }
+
+        curl_close($c);
 
         return $respuesta;
     }
