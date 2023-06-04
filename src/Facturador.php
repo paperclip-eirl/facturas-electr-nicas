@@ -170,13 +170,6 @@ class Facturador
         return $this->parámetros($parámetros)->ejecutar('consultar_ruc');
     }
 
-    /**
-     * Ejecuta el comando "consultar_ticket"
-     */
-    public function consultarTicket(array $parámetros): array
-    {
-        return $this->parámetros($parámetros)->ejecutar('consultar_ticket');
-    }
 
     /**
      * Ejecuta el comando "hola"
