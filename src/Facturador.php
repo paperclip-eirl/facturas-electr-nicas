@@ -20,6 +20,9 @@ class Facturador
     /** Respuesta de la API, para obtener con obtenerRespuesta() */
     private $respuesta = [];
 
+    /** Opciones extra de cUrl */
+    private $opciones_curl = [];
+
     /**
      * Constructor de la clase
      *
@@ -43,10 +46,14 @@ class Facturador
     }
 
     /**
-     * Añade opciones a la librería cURL. Usado para depuración.
+     * Añade opciones a la librería cURL. Usado usualmente para depuración.
+     *
+     * @param array $opciones Array de opciones, en el formato del comando
+     *  curl_setopt_array()
      */
-    public function colocarOpcionesCURL($c)
+    public function opcionesCurl(array $opciones)
     {
+        $this->opciones_curl = $opciones;
     }
 
     /**
@@ -81,7 +88,9 @@ class Facturador
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($c, CURLOPT_POSTFIELDS, $payload);
 
-        $this->colocarOpcionesCURL($c);
+        if ($this->opciones_curl) {
+            curl_setopt_array($c, $this->opciones_curl);
+        }
 
         $result = curl_exec($c);
 
